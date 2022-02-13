@@ -1,0 +1,26 @@
+Python
+
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        #define sum for return in the end
+        sum = cur = ListNode(None)
+        #up illustrates carry value after the previous digit added up
+        carry = 0
+        #do the loop util the longer list has been iterated 
+        while (l1 != None or l2 != None):
+            #the shorter one use value of 0 corresponding to those digits out of range
+            l1 = l1 if l1 else ListNode(0)
+            l2 = l2 if l2 else ListNode(0)
+            #divmod calculates the quotient and remainder
+            carry , temp = divmod((l1.val + l2.val + carry),10)
+            cur.next = ListNode(temp)
+            #Move one node forward in the chain table sum, l1, l2
+            cur = cur.next
+            l1 = l1.next
+            l2 = l2.next
+        #If the sum of the last two digits exceeds 10, then one more digit is added
+        if (carry != 0):
+            cur.next = carry
+        return sum.next
+        
+Hint: Need to consider the carry value.
