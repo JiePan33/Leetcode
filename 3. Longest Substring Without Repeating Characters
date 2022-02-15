@@ -1,0 +1,25 @@
+Python
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        #Define a hashset to judge if a string has appeared or not
+        subSet = set()
+        n = len(s)
+        #Define right key rk as right boundary
+        rk = 0
+        ans = 0
+        for i in range(n):
+            #Left border shifted one place to the right after the first iteration
+            if(i > 0):
+                subSet.remove(s[i - 1])
+            #Determine if s[rk] is already in the subset
+            #If not, then rk shift one place to the right
+            #Else, terminate this loop
+            while(rk < n and s[rk] not in subSet):
+                subSet.add(s[rk])
+                rk += 1
+            #Under each iteration of i, update the maximum length of Substring
+            ans = max(ans, rk - i)
+        return ans
+
+Hint: Using slide windows. Shift left key one place every iteration and move right key until appears repeated character.
